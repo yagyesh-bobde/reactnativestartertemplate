@@ -29,6 +29,8 @@ module.exports = function (api) {
           },
         },
       ],
+      // Must be last
+      'react-native-worklets/plugin',
     ],
   };
 };

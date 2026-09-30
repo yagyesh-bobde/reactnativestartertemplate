@@ -170,7 +170,11 @@ function checkFile(file, addedLines) {
   const addedText = addedLines.map((l) => l.content).join('\n');
   const normalized = file.replace(/\\/g, '/');
 
-  if (/\.(test|spec)\.(tsx?|jsx?)$/.test(normalized)) {
+  // Skip tests and this script itself (its rule regexes would flag their own source).
+  if (
+    /\.(test|spec)\.(tsx?|jsx?)$/.test(normalized) ||
+    normalized === 'scripts/check-rn-footguns.js'
+  ) {
     return;
   }
 

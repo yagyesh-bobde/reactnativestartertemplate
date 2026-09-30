@@ -21,7 +21,7 @@ afterAll(() => {
   queryClient.clear();
 });
 
-test('renders the example screen with query data', async () => {
+test('renders the starter screen with query data', async () => {
   let renderer!: ReactTestRenderer.ReactTestRenderer;
 
   await ReactTestRenderer.act(async () => {
@@ -33,6 +33,7 @@ test('renders the example screen with query data', async () => {
   });
 
   const text = textOf(renderer.toJSON() as ReactTestRenderer.ReactTestRendererNode);
-  expect(text).toContain('Pressed 0 times');
-  expect(text).toContain('Hello from the starter template');
+  expect(text).toContain('Starter Template');
+  expect(text).toContain('the boring setup already done');
+  expect(text).toContain('☆Star on GitHub');
 });

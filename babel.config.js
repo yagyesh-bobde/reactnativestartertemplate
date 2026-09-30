@@ -4,6 +4,8 @@ module.exports = function (api) {
   return {
     presets: ['module:@react-native/babel-preset'],
     plugins: [
+      // Zod's ESM entry point uses `export * as namespace`.
+      '@babel/plugin-transform-export-namespace-from',
       [
         'module:react-native-dotenv',
         {

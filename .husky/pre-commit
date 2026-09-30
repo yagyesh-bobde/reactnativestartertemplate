@@ -1,0 +1,2 @@
+node scripts/check-rn-footguns.js
+bunx lint-staged

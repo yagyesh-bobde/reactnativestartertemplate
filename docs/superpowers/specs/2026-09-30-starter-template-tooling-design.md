@@ -1,7 +1,7 @@
 # React Native Starter Template: Tooling, Config & Structure
 
 Date: 2026-09-30
-Status: Draft, awaiting review
+Status: Implemented
 
 ## Intent
 
@@ -143,11 +143,10 @@ commit that triggers both hooks (including a bad commit message being rejected).
 Build scripts are checked with `bash -n` and a dry read only; not executed (no build
 commands unless asked). Final grep for Kavana/personal references.
 
-## Open items
+## Resolved during implementation
 
-1. **Bun version pin file:** `bun` is not installed in this shell, so its version
-   can't be read. Proposed: `.bun-version` plus `"packageManager": "bun@<version>"` in
-   `package.json`. Confirm which (or both) and the version.
-2. **Footgun rule list:** finalised in the plan after reading the rest of the source.
-3. **Phase split:** Phase 1 and Phase 2 can ship as separate commits/PRs; confirm
-   preference at plan time.
+1. **Bun pin:** `packageManager` field only, at `bun@1.4.2`.
+2. **Footgun rules:** generic set ported (runOnJS/scheduleOnRN, setTimeout near animations, leaked render, layout animations, raw TouchableOpacity, JS stack navigator, ScrollView + map, scroll in useState). The scanner skips tests and its own source.
+3. **Phase split:** shipped as two commits on one branch/PR.
+4. **Jest aliases:** no `moduleNameMapper` needed; babel `module-resolver` covers aliases under babel-jest (verified by the App test importing via `@app`, `@navigation`, `@/`). Jest instead needed `transformIgnorePatterns` for `@react-navigation` / `react-native-*`, the gesture-handler jest setup, and a safe-area mock.
+5. **Ruby:** iOS pods need a modern Ruby (built with rbenv 3.4.7); no `.ruby-version` was added.

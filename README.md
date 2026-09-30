@@ -1,7 +1,37 @@
 # React Native Starter Template
 
-Bare React Native (0.87) starter with TypeScript, path aliases, env handling, git hooks and
-Android build scripts. Package manager: **bun**.
+Bare React Native (0.87) starter with the boring setup already done: TypeScript, path aliases,
+env handling, data fetching, state, git hooks and Android build scripts. No Expo, no framework.
+Package manager: **bun**.
+
+If it saves you a setup day, a ⭐ on the repo helps other people find it.
+
+## Use this template
+
+Click **Use this template** on GitHub, or with the GitHub CLI:
+
+```sh
+gh repo create my-app --template yagyesh-bobde/reactnativestartertemplate --private --clone
+```
+
+Then start editing in `src/modules/example`, or copy it as the base for your first module.
+
+## What's inside
+
+| Area         | Choice                                                                      |
+| ------------ | --------------------------------------------------------------------------- |
+| Language     | Strict TypeScript, aliases `@/`, `@core`, `@shared`, `@navigation`, `@app`  |
+| Navigation   | `@react-navigation/native-stack`, route enums, typed global `RootParamList` |
+| Server state | TanStack Query with `queryOptions` factories, responses validated with zod  |
+| Client state | Zustand stores exposed as selector hooks, MMKV for persistence              |
+| Animation    | Reanimated 4, react-native-worklets, Gesture Handler                        |
+| Styling      | `react-native-size-matters` scaling and a shared theme palette              |
+| Env          | `.env.<environment>` picked by `APP_ENVIRONMENT`, imported from `@env`      |
+| Guardrails   | ESLint, Prettier, husky, commitlint, lint-staged, RN footgun checks         |
+| Releases     | APK/AAB build scripts and Firebase App Distribution                         |
+
+The example module renders the start screen: a query-backed intro, a GitHub card and the
+feature list. It shows the module layout end to end (`api/` → `queries/` → `screens/`).
 
 ## Setup
 

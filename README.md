@@ -1,97 +1,64 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# React Native Starter Template
 
-# Getting Started
+Bare React Native (0.87) starter with TypeScript, path aliases, env handling, git hooks and
+Android build scripts. Package manager: **bun**.
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
-
-## Step 1: Start Metro
-
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
-
-To start the Metro dev server, run the following command from the root of your React Native project:
+## Setup
 
 ```sh
-# Using npm
-npm start
-
-# OR using Yarn
-yarn start
+bun install
+cp .env.example .env            # plus .env.development / .env.staging / .env.production
+bundle install && bundle exec pod install --project-directory=ios
 ```
 
-## Step 2: Build and run your app
-
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
-
-### Android
+## Run
 
 ```sh
-# Using npm
-npm run android
-
-# OR using Yarn
-yarn android
+bun run start
+bun run android
+bun run ios
 ```
 
-### iOS
+## Scripts
 
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
+| Script                               | What it does                                              |
+| ------------------------------------ | --------------------------------------------------------- |
+| `typecheck`                          | `tsc --noEmit`                                            |
+| `lint` / `lint:fix`                  | ESLint (with Prettier as a rule)                          |
+| `format` / `format:check`            | Prettier over `src` and root config files                 |
+| `test`                               | Jest                                                      |
+| `check:footguns`                     | RN footgun scan of staged files (also runs on pre-commit) |
+| `clean`                              | Clear watchman and Metro/Babel caches                     |
+| `build:apk [env] [--no-install]`     | Release APK, installed on a connected device              |
+| `build:aab [env]`                    | Release AAB for Play Store                                |
+| `distribute:android [env] [options]` | Release APK to Firebase App Distribution                  |
 
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
+`env` is `development`, `staging` or `production`; it sets `APP_ENVIRONMENT`, which selects
+the `.env.<env>` file.
+
+## Environment
+
+Values are inlined at build time by `react-native-dotenv` and imported from `@env`
+(typed in `src/types/env.d.ts`). Only `.env.example` is committed. When adding a key, update
+`.env.example` and `src/types/env.d.ts`.
+
+## Git hooks (husky)
+
+- `pre-commit`: footgun check, then lint-staged (Prettier + ESLint on staged files).
+- `commit-msg`: commitlint, conventional commits (`feat: ...`, `fix: ...`).
+
+## Distributing to Firebase
 
 ```sh
-bundle install
+export FIREBASE_ANDROID_APP_ID=1:1234567890:android:abcdef123456
+bun run distribute:android staging --groups "qa-team"
 ```
 
-Then, and every time you update your native dependencies, run:
+Requires the Firebase CLI (`bun add -g firebase-tools`) and `firebase login` or
+`GOOGLE_APPLICATION_CREDENTIALS`. Flags: `--groups`, `--testers`, `--release-notes`,
+`--skip-build`.
 
-```sh
-bundle exec pod install
-```
+## Project structure
 
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
-
-```sh
-# Using npm
-npm run ios
-
-# OR using Yarn
-yarn ios
-```
-
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
-
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
-
-## Step 3: Modify your app
-
-Now that you have successfully run the app, let's make changes!
-
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
-
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
-
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
-
-## Congratulations! :tada:
-
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+See [CLAUDE.md](./CLAUDE.md) (`AGENTS.md` is a symlink to it) for the folder layout, module
+anatomy and coding rules.

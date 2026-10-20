@@ -20,6 +20,7 @@ const DOC = {
   touchable: 'CLAUDE.md > React Native Rules',
   nativeStack: 'CLAUDE.md > React Native Rules',
   lists: 'CLAUDE.md > React Native Rules',
+  keyboard: 'CLAUDE.md > React Native Rules',
 };
 
 const errors = [];
@@ -236,6 +237,21 @@ function checkFile(file, addedLines) {
       !isTypeOnlyImport(line)
     ) {
       flag('warn', file, lineNum, 'raw-touchable-opacity', 'Use Pressable', DOC.touchable);
+    }
+
+    if (
+      /\bKeyboardAvoidingView\b/.test(line) &&
+      /from\s+['"]react-native['"]/.test(line) &&
+      !isTypeOnlyImport(line)
+    ) {
+      flag(
+        'warn',
+        file,
+        lineNum,
+        'rn-keyboard-api',
+        'Use react-native-keyboard-controller KeyboardAvoidingView, not the react-native one',
+        DOC.keyboard,
+      );
     }
 
     if (/@react-navigation\/stack/.test(line)) {

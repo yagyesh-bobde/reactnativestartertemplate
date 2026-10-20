@@ -81,3 +81,20 @@ firebase-debug.log
 .env
 .env.*
 !.env.example
+
+# Docs: plans / specs / superpowers / archive stay local (see CLAUDE.md "Docs")
+docs/_archive/
+docs/plans/
+docs/superpowers/
+specs/
+
+# Worktrees and editor/agent caches
+.worktrees/
+.claude/worktrees/
+.cursor/
+.codex
+tmp
+
+# Agent memory: local only, never commit
+.claude/memory/
+.claude/agent-memory-local/

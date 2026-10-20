@@ -25,6 +25,7 @@ Then start editing in `src/modules/example`, or copy it as the base for your fir
 | Server state | TanStack Query with `queryOptions` factories, responses validated with zod  |
 | Client state | Zustand stores exposed as selector hooks, MMKV for persistence              |
 | Animation    | Reanimated 4, react-native-worklets, Gesture Handler                        |
+| Keyboard     | `react-native-keyboard-controller`, provider mounted in `AppProviders`      |
 | Styling      | `react-native-size-matters` scaling and a shared theme palette              |
 | Env          | `.env.<environment>` picked by `APP_ENVIRONMENT`, imported from `@env`      |
 | Guardrails   | ESLint, Prettier, husky, commitlint, lint-staged, RN footgun checks         |
@@ -87,6 +88,17 @@ bun run distribute:android staging --groups "qa-team"
 Requires the Firebase CLI (`bun add -g firebase-tools`) and `firebase login` or
 `GOOGLE_APPLICATION_CREDENTIALS`. Flags: `--groups`, `--testers`, `--release-notes`,
 `--skip-build`.
+
+## Docs
+
+Team knowledge lives in `docs/`, one short page per topic:
+
+- [`docs/crashes/`](./docs/crashes/README.md) — crashes, ANRs and runtime bugs, with the fix that shipped
+- [`docs/solutions/`](./docs/solutions/README.md) — how major features and systems work, plus BE/FE contracts, grouped by area subfolder
+- [`docs/pivots/`](./docs/pivots/README.md) — when we switched from X to Y, and why
+- [`docs/fuckups/`](./docs/fuckups/README.md) — mistakes that shipped, their fix and the lesson; check before releases
+
+Plans, specs and design docs (`docs/plans/`, `docs/superpowers/`, `specs/`) stay local and are not committed.
 
 ## Project structure
 
